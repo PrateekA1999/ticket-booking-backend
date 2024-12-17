@@ -1,0 +1,39 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: mathematicalbison
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: ticket-booking
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: ticket-booking
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  hello:
+    handler: handler.getSeats
+    events:
+      - http:
+          path: /get-seats
+          method: get
+          cors: true
+
+  book:
+    handler: handler.bookSeats
+    events:
+      - http:
+          path: /book
+          method: post
+          cors: true
+
+  cancel:
+    handler: handler.cancelBooking
+    events:
+      - http:
+          path: /cancel
+          method: post
+          cors: true
